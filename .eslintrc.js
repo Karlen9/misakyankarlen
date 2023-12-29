@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'i18next'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
     'react/react-in-jsx-scope': 'off',
     'space-before-function-paren': 'off',
     'react/jsx-indent': ['error', 2],

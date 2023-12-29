@@ -3,7 +3,7 @@ import { Button, ThemeButton } from 'shared/ui/Button/Button'
 import USFlag from 'shared/assets/icons/us-flag.svg'
 import RusFlag from 'shared/assets/icons/russian-flag.svg'
 import SpainFlag from 'shared/assets/icons/spain-flag.svg'
-import { ReactElement, useState } from 'react' 
+import { useState } from 'react'
 import cls from './TranslateToggle.module.scss'
 
 enum Lang {
@@ -11,10 +11,10 @@ enum Lang {
   EN = 'en',
   ES = 'es'
 }
-const TranslationIcons:Record<string, ReactElement> = {
-  'ru': <RusFlag width={28} height={28} />,
-  'en': <USFlag width={28} height={28} />,
-  'es': <SpainFlag width={28} height={28} />
+const TranslationIcons: Record<string, React.ReactElement> = {
+  ru: <RusFlag width={28} height={28} />,
+  en: <USFlag width={28} height={28} />,
+  es: <SpainFlag width={28} height={28} />
 }
 
 export const TranslateToggle = () => {
@@ -22,41 +22,49 @@ export const TranslateToggle = () => {
   const { i18n } = useTranslation()
 
   const onOpenSelect = () => {
-    setIsSelectOpen(prev => !prev)
+    setIsSelectOpen((prev) => !prev)
   }
 
   const onSelectLanguage = (lang: Lang) => {
-    i18n.changeLanguage(lang).catch(err => console.error(err))
+    i18n.changeLanguage(lang).catch((err) => {
+      console.error(err)
+    })
     setIsSelectOpen(false)
   }
 
   return (
     <div>
-      {
-        isSelectOpen ? 
+      {isSelectOpen ? (
         <>
           <Button theme={ThemeButton.CLEAR} onClick={onOpenSelect}>
             <div className={cls.emptyCircle} />
           </Button>
           <div className={cls.select}>
-            <Button theme={ThemeButton.CLEAR} onClick={() => onSelectLanguage(Lang.EN)}>
+            <Button
+              theme={ThemeButton.CLEAR}
+              onClick={() => onSelectLanguage(Lang.EN)}
+            >
               <USFlag width={28} height={28} />
             </Button>
-            <Button theme={ThemeButton.CLEAR} onClick={() => onSelectLanguage(Lang.RU)}>
+            <Button
+              theme={ThemeButton.CLEAR}
+              onClick={() => onSelectLanguage(Lang.RU)}
+            >
               <RusFlag width={28} height={28} />
             </Button>
-            <Button theme={ThemeButton.CLEAR} onClick={() => onSelectLanguage(Lang.ES)}>
+            <Button
+              theme={ThemeButton.CLEAR}
+              onClick={() => onSelectLanguage(Lang.ES)}
+            >
               <SpainFlag width={28} height={28} />
             </Button>
-          </div> 
+          </div>
         </>
-
-            : 
-          <Button theme={ThemeButton.CLEAR} onClick={onOpenSelect}>
-            {TranslationIcons[i18n.language]}
-          </Button>
-      }
+      ) : (
+        <Button theme={ThemeButton.CLEAR} onClick={onOpenSelect}>
+          {TranslationIcons[i18n.language]}
+        </Button>
+      )}
     </div>
   )
 }
-
